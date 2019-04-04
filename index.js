@@ -1,32 +1,47 @@
 const redux = require('redux')
 
-const initialState = {
-  firstName: 'Charles',
-  lastName: 'Eamnes',
-  age: 75
+// Crate reducer
+let reducer = (state = 1, action) => {
+  return state
 }
 
-const reducer = (state = initialState, action = {}) => {
+// Create store
+const store = redux.createStore(reducer)
+console.log(`Initial state of the store: ${store.getState()}`)
+
+// Create action
+store.subscribe(() => console.log('Next state:', store.getState()))
+
+const action = {
+  type: 'ADD_ONE'
+}
+
+// Dispatch action
+store.dispatch(action)
+
+// Add more actions
+const actionTwo = {
+  type: 'ADD_TWO'
+}
+
+store.dispatch(actionTwo)
+
+const actionThree = {
+  type: 'ADD_THREE'
+}
+
+// Make the reducer respond to the actions
+reducer = (state = 1, action = {}) => {
   switch (action.type) {
-    case 'SET_FIRST_NAME':
-      return {
-        ...state,
-        firstName: action.payload
-      }
+    case 'ADD_ONE':
+      return state + 1
+    case 'ADD_TWO':
+      return state + 2
+    case 'ADD_THREE':
+      return state + 3
     default:
       return state
   }
 }
 
-const store = redux.createStore(reducer)
-
-console.log('Initial state of the store', store.getState())
-
-store.subscribe(() => console.log('Next state:', store.getState()))
-const action = {
-  type: 'SET_FIRST_NAME',
-  payload: 'Alice'
-}
-
-store.dispatch(action)
 module.exports = { reducer }
