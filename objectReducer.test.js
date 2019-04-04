@@ -1,4 +1,4 @@
-const { reducer } = require('./index')
+const { reducer } = require('./objectReducer')
 
 test('Initial state should be Charles Eamnes, age 75', () => {
   expect(reducer()).toEqual({

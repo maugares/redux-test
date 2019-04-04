@@ -12,8 +12,16 @@ const reducer = (state = initialState, action = {}) => {
     case 'ADD_DOG':
       return [
         ...state,
-        action.payload
+        { ...action.payload }
       ]
+
+    case 'SET_DOGS':
+        // map creates a new array and iterates over it
+        return action.payload.map(dog => {
+          // { ...dog } creates a shallow copy of dog element
+          return { ...dog }
+        })
+
     default:
       return state
   }
@@ -34,5 +42,22 @@ const action = {
 }
 
 store.dispatch(action)
+
+// Add action SET_DOGS with payload being an array
+const action2 = {
+  type: 'SET_DOGS',
+  payload: [
+    {
+      name: 'The new Dog in town',
+      isAGoodBoy: true
+    },
+    {
+      name: 'Snoop Dog',
+      isAGoodBoy: false
+    }
+  ]
+}
+
+store.dispatch(action2)
 
 module.exports = { reducer }
