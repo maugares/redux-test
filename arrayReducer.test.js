@@ -12,9 +12,11 @@ test('ADD_DOG should add a new dog to the state', () => {
       isAGoodBoy: false
     }
   }
+
   const initialState = []
   // this deep clones the initial state, so we can check for mutations
   const originalStateFrozen = JSON.parse(JSON.stringify(initialState))
+  
   expect(reducer(initialState, action).length).toBe(1)
   // checks for mutations in the state
   expect(originalStateFrozen).toEqual(initialState)
@@ -34,4 +36,11 @@ test('It should be possible to add two dogs to the state', () => {
       name: 'The new Dog in town',
       isAGoodBoy: true
     }
-Jav
+  }
+
+  const stateAfterActionOne = reducer([], actionOne)
+  const originalStateFrozen = JSON.parse(JSON.stringify(stateAfterActionOne))
+
+  expect(reducer(stateAfterActionOne, actionTwo).length).toBe(2)
+  expect(originalStateFrozen).toEqual(stateAfterActionOne)
+})
